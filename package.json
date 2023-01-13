@@ -1,0 +1,15 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "chat-app monorepo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Steve Hunley",
+  "license": "ISC",
+  "workspaces": [
+    "packages/client",
+    "packages/server"
+  ]
+}
