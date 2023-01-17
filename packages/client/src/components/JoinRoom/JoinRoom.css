@@ -16,3 +16,9 @@
   padding: 1.875rem 2.5rem;
   background: var(--dark-color-b);
 }
+
+.join-submit {
+  background: var(--light-color);
+  color: var(--dark-color-a);
+  font-size: 1.063rem;
+}

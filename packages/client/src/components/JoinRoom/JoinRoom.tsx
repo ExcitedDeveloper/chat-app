@@ -18,7 +18,7 @@ const JoinRoom = () => {
             <Form.Label>Username</Form.Label>
             <Form.Control placeholder='Enter username...' />
           </Form.Group>
-          <Form.Group controlId='room'>
+          <Form.Group controlId='room' className='mb-5'>
             <Form.Label>Room</Form.Label>
             <Form.Select>
               <option value='JavaScript' selected>
@@ -31,6 +31,12 @@ const JoinRoom = () => {
               <option value='Java'>Java</option>
             </Form.Select>
           </Form.Group>
+          <Button
+            as='input'
+            type='submit'
+            value='Join Chat'
+            className='w-full join-submit'
+          />
         </Form>
       </main>
     </div>
