@@ -1,0 +1,18 @@
+.join-container {
+  max-width: 31.25rem;
+  margin: 5rem auto;
+  color: #fff;
+}
+
+.join-header {
+  text-align: center;
+  padding: 1.25rem;
+  background: var(--dark-color-a);
+  border-top-left-radius: 0.313rem;
+  border-top-right-radius: 0.313rem;
+}
+
+.join-main {
+  padding: 1.875rem 2.5rem;
+  background: var(--dark-color-b);
+}
