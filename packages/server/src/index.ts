@@ -6,8 +6,8 @@ import {
   getCurrentUser,
   userLeave,
   getRoomUsers,
-} from './utils/users'
-import { formatMessage, SocketMessages, EmitMessages } from './utils/messages'
+} from '../utils/users'
+import { formatMessage, SocketMessages, EmitMessages } from '../utils/messages'
 
 const app = express()
 const server = http.createServer(app)
