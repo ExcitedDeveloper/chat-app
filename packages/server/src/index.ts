@@ -8,6 +8,9 @@ import {
   getRoomUsers,
 } from '../utils/users'
 import { formatMessage, SocketMessages, EmitMessages } from '../utils/messages'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 const server = http.createServer(app)
@@ -78,7 +81,9 @@ io.on(SocketMessages.Connection, (socket) => {
   })
 })
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT // || 3000
+
+console.log(`PORT`, PORT)
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
