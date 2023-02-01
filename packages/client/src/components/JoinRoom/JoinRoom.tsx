@@ -1,4 +1,4 @@
-import { FormEvent } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSmile } from '@fortawesome/free-solid-svg-icons'
@@ -8,11 +8,21 @@ import './JoinRoom.css'
 
 const JoinRoom = () => {
   const navigate = useNavigate()
+  const [username, setUsername] = useState<string>()
+  const [room, setRoom] = useState<string>('JavaScript')
 
   const handleSubmit = (e: any) => {
     console.log(`handleSubmit`)
     e.preventDefault()
-    navigate('/chat')
+    navigate('/chat', { state: { username, room } })
+  }
+
+  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value)
+  }
+
+  const handleRoomChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setRoom(e.target.value)
   }
 
   console.log(`render JoinRoom`)
@@ -27,11 +37,15 @@ const JoinRoom = () => {
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId='username' className='mb-3'>
             <Form.Label>Username</Form.Label>
-            <Form.Control placeholder='Enter username...' />
+            <Form.Control
+              placeholder='Enter username...'
+              onChange={handleUsernameChange}
+              value={username}
+            />
           </Form.Group>
           <Form.Group controlId='room' className='mb-5'>
             <Form.Label>Room</Form.Label>
-            <Form.Select defaultValue={'JavaScript'}>
+            <Form.Select value={room} onChange={handleRoomChange}>
               <option value='JavaScript'>JavaScript</option>
               <option value='Python'>Python</option>
               <option value='PHP'>PHP</option>
