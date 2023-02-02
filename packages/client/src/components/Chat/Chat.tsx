@@ -11,7 +11,7 @@ const Chat = () => {
   // },[name, room])
 
   return (
-    <div>
+    <div className='chat-container'>
       <div>Username: {username}</div>
       <div>Room: {room}</div>
     </div>

@@ -1,0 +1,6 @@
+.chat-container {
+  max-width: 68.75rem;
+  background: #fff;
+  margin: 1.875rem auto;
+  overflow: hidden;
+}
