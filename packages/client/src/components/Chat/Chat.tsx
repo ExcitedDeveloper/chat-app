@@ -1,8 +1,21 @@
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import './Chat.css'
 
 const Chat = () => {
-  console.log(`render Chat`)
-  return <div>Chat</div>
+  const { state } = useLocation()
+  const { username, room } = state
+
+  // useEffect(() => {
+
+  // },[name, room])
+
+  return (
+    <div>
+      <div>Username: {username}</div>
+      <div>Room: {room}</div>
+    </div>
+  )
 }
 
 export default Chat
