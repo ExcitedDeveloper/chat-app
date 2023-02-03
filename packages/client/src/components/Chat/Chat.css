@@ -4,3 +4,7 @@
   margin: 1.875rem auto;
   overflow: hidden;
 }
+
+.chat-image::before {
+  content: '\f118';
+}

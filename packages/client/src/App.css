@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -9,5 +11,8 @@
 }
 
 body {
-  background-color: var(--light-color);
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  background: var(--light-color);
+  margin: 1.25rem;
 }

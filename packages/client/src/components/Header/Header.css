@@ -1,0 +1,10 @@
+.chat-header {
+  background: var(--dark-color-a);
+  color: #fff;
+  border-top-left-radius: 0.313rem;
+  border-top-right-radius: 0.313rem;
+  padding: 0.938rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
