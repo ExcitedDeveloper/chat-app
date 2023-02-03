@@ -1,13 +1,13 @@
-import { useState, ChangeEvent } from 'react'
+import { useContext, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSmile } from '@fortawesome/free-solid-svg-icons'
+import { ChatAppContext } from '../../ChatAppContext'
 import './JoinRoom.css'
 
 const JoinRoom = () => {
   const navigate = useNavigate()
-  const [username, setUsername] = useState<string>()
-  const [room, setRoom] = useState<string>('JavaScript')
+  const { username, room, setUsername, setRoom } = useContext(ChatAppContext)
 
   const handleSubmit = (e: any) => {
     console.log(`handleSubmit`)
