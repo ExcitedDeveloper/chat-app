@@ -1,0 +1,19 @@
+.chat-form-container {
+  padding: 1.25rem 1.875rem;
+  background-color: var(--dark-color-a);
+}
+
+.chat-form {
+  display: flex;
+}
+
+.chat-form-container input[type='text'] {
+  font-size: 1rem;
+  padding: 0.313rem;
+  height: 2.5rem;
+  flex: 1;
+}
+
+.chat-paperplane::before {
+  content: '\f1d8';
+}
