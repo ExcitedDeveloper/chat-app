@@ -7,12 +7,7 @@ import {
   useMemo,
 } from 'react'
 
-export const ChatAppContext = createContext<Partial<ChatAppDetails>>({
-  username: undefined,
-  setUsername: undefined,
-  room: undefined,
-  setRoom: undefined,
-})
+export const ChatAppContext = createContext<Partial<ChatAppDetails>>({})
 
 export const ChatAppProvider = ({ children }: ChatAppProviderProps) => {
   const [room, setRoom] = useState<string | undefined>()
@@ -30,9 +25,9 @@ export const ChatAppProvider = ({ children }: ChatAppProviderProps) => {
 
 export interface ChatAppDetails {
   username?: string
-  setUsername?: Dispatch<SetStateAction<string | undefined>>
+  setUsername: Dispatch<SetStateAction<string | undefined>>
   room?: string
-  setRoom?: Dispatch<SetStateAction<string | undefined>>
+  setRoom: Dispatch<SetStateAction<string | undefined>>
 }
 
 export interface ChatAppProviderProps {

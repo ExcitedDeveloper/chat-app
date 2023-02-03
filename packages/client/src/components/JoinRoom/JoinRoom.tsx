@@ -10,20 +10,18 @@ const JoinRoom = () => {
   const { username, room, setUsername, setRoom } = useContext(ChatAppContext)
 
   const handleSubmit = (e: any) => {
-    console.log(`handleSubmit`)
     e.preventDefault()
     navigate('/chat', { state: { username, room } })
   }
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value)
+    setUsername && setUsername(e.target.value)
   }
 
   const handleRoomChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setRoom(e.target.value)
+    setRoom && setRoom(e.target.value)
   }
 
-  console.log(`render JoinRoom`)
   return (
     <div className='join-container'>
       <header className='join-header'>
