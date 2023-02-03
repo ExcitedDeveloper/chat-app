@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSmile } from '@fortawesome/free-regular-svg-icons'
-import Button from 'react-bootstrap/Button'
 import './Header.css'
 
 const Header = () => {
@@ -10,7 +9,7 @@ const Header = () => {
         <FontAwesomeIcon icon={faSmile} />
         {' Chat App'}
       </h1>
-      <Button className='bg-light text-primary'>Leave Room</Button>
+      <a className='btn'>Leave Room</a>
     </header>
   )
 }

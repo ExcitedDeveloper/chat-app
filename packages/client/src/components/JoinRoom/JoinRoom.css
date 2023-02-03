@@ -17,8 +17,34 @@
   background: var(--dark-color-b);
 }
 
-.join-submit {
-  background: var(--light-color);
-  color: var(--dark-color-a);
-  font-size: 1.063rem;
+.join-main p {
+  margin-bottom: 1.25rem;
+}
+
+.join-main .join-control {
+  margin-bottom: 1.25rem;
+}
+
+.join-main label {
+  display: block;
+  margin-bottom: 0.313rem;
+}
+
+.join-main input[type='text'] {
+  font-size: 1rem;
+  padding: 0.313rem;
+  height: 2.5rem;
+  width: 100%;
+}
+
+.join-main select {
+  font-size: 1rem;
+  padding: 0.313rem;
+  height: 2.5rem;
+  width: 100%;
+}
+
+.join-main .btn {
+  margin-top: 1.25rem;
+  width: 100%;
 }

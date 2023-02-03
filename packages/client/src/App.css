@@ -16,3 +16,12 @@ body {
   background: var(--light-color);
   margin: 1.25rem;
 }
+
+.btn {
+  cursor: pointer;
+  padding: 0.313rem 0.938rem;
+  background: var(--light-color);
+  color: var(--dark-color-a);
+  border: 0;
+  font-size: 1.063rem;
+}

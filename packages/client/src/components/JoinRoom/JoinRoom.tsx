@@ -2,8 +2,6 @@ import { useState, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSmile } from '@fortawesome/free-solid-svg-icons'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
 import './JoinRoom.css'
 
 const JoinRoom = () => {
@@ -34,33 +32,39 @@ const JoinRoom = () => {
         </h1>
       </header>
       <main className='join-main'>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId='username' className='mb-3'>
-            <Form.Label>Username</Form.Label>
-            <Form.Control
+        <form onSubmit={handleSubmit}>
+          <div className='join-control'>
+            <label htmlFor='username'>Username</label>
+            <input
+              type='text'
+              name='username'
+              id='username'
               placeholder='Enter username...'
+              required
               onChange={handleUsernameChange}
               value={username}
             />
-          </Form.Group>
-          <Form.Group controlId='room' className='mb-5'>
-            <Form.Label>Room</Form.Label>
-            <Form.Select value={room} onChange={handleRoomChange}>
+          </div>
+          <div className='join-control'>
+            <label htmlFor='room'>Room</label>
+            <select
+              name='room'
+              id='room'
+              value={room}
+              onChange={handleRoomChange}
+            >
               <option value='JavaScript'>JavaScript</option>
               <option value='Python'>Python</option>
               <option value='PHP'>PHP</option>
               <option value='C#'>C#</option>
               <option value='Ruby'>Ruby</option>
               <option value='Java'>Java</option>
-            </Form.Select>
-          </Form.Group>
-          <Button
-            as='input'
-            type='submit'
-            value='Join Chat'
-            className='d-block w-100 join-submit'
-          />
-        </Form>
+            </select>
+          </div>
+          <button type='submit' className='btn'>
+            Join Chat
+          </button>
+        </form>
       </main>
     </div>
   )
