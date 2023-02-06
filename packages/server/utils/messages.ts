@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { User } from './users'
 
 export interface Message {
   userName: string
@@ -17,6 +18,7 @@ export const formatMessage = (userName: string, text: string): Message => {
 export enum EmitMessages {
   Message = 'message',
   RoomUsers = 'roomUsers',
+  Pong = 'pong',
 }
 
 export enum SocketMessages {
@@ -24,4 +26,10 @@ export enum SocketMessages {
   Connection = 'connection',
   Disconnect = 'disconnect',
   JoinRoom = 'joinRoom',
+  Ping = 'ping',
+}
+
+export interface RoomUsersEvent {
+  room: string
+  users: User[]
 }

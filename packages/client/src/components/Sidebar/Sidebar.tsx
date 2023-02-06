@@ -2,24 +2,29 @@ import { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers, faComments } from '@fortawesome/free-solid-svg-icons'
 import { ChatAppContext } from '../../ChatAppContext'
+import { User } from '@chatapp/server/utils/users'
 import './Sidebar.css'
 
 const Sidebar = () => {
-  const { username, room } = useContext(ChatAppContext)
+  const { room, users } = useContext(ChatAppContext)
 
   return (
     <div className='chat-sidebar'>
       <h3>
         <FontAwesomeIcon icon={faComments} />
-        {room}
+        {' Room Name:'}
       </h3>
-      <h2 id='room-name'>{'JavaScript'}</h2>
+      <h2 id='room-name'>{room}</h2>
       <h3>
         <FontAwesomeIcon icon={faUsers} />
         {' Users:'}
       </h3>
       <ul id='users'>
-        <li>{username}</li>
+        {users &&
+          users.length > 0 &&
+          users.map((user: User) => (
+            <li key={crypto.randomUUID()}>{user.userName}</li>
+          ))}
       </ul>
     </div>
   )

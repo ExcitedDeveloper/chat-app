@@ -4,10 +4,13 @@ import Main from '../Main/Main'
 import Footer from '../Footer/Footer'
 import { io, Socket } from 'socket.io-client'
 import { ChatAppContext } from '../../ChatAppContext'
+import { RoomUsersEvent } from '@chatapp/server/utils/messages'
 import './Chat.css'
 
 interface ServerToClientEvents {
   pong: () => void
+  message: (msg: string) => void
+  roomUsers: (data: RoomUsersEvent) => void
 }
 
 interface ClientToServerEvents {
@@ -17,30 +20,39 @@ interface ClientToServerEvents {
 
 let socket: Socket<ServerToClientEvents, ClientToServerEvents>
 
-console.log(`process.env.NODE_ENV`, process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'production') {
-  console.log(`production io`)
   const serverUrl = 'https://www.chat.server.stevehunley.dev/'
   socket = io(serverUrl)
 } else {
-  console.log(`development io`)
   socket = io('http://localhost:3000')
 }
 
 const Chat = () => {
   const [isConnected, setIsConnected] = useState(socket.connected)
   const [lastPong, setLastPong] = useState<string | null>(null)
-  const { username, room } = useContext(ChatAppContext)
+  const { userName, room, setUsers } = useContext(ChatAppContext)
 
   useEffect(() => {
-    console.log(`socket.connected`, socket.connected)
-    console.log(`client username: ${username}, room: ${room}`)
-    socket.emit('joinRoom', { username, room: 'Vite' })
-  }, [username, room])
+    if (userName && room) {
+      socket.emit('joinRoom', { userName, room })
+    }
+  }, [userName, room])
 
   useEffect(() => {
     socket.on('connect', () => {
       setIsConnected(true)
+    })
+
+    socket.on('message', (message: string) => {
+      console.log(`message`, message)
+    })
+
+    socket.on('roomUsers', (data: RoomUsersEvent) => {
+      const { room: eventRoom, users } = data
+
+      if (eventRoom === room) {
+        setUsers && setUsers(users)
+      }
     })
 
     socket.on('disconnect', () => {

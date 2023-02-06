@@ -1,4 +1,4 @@
-import { useContext, ChangeEvent } from 'react'
+import { useContext, ChangeEvent, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSmile } from '@fortawesome/free-solid-svg-icons'
@@ -7,15 +7,19 @@ import './JoinRoom.css'
 
 const JoinRoom = () => {
   const navigate = useNavigate()
-  const { username, room, setUsername, setRoom } = useContext(ChatAppContext)
+  const { userName, room, setUserName, setRoom } = useContext(ChatAppContext)
+
+  useEffect(() => {
+    setRoom && setRoom('JavaScript')
+  }, [setRoom])
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    navigate('/chat', { state: { username, room } })
+    navigate('/chat', { state: { userName, room } })
   }
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUsername && setUsername(e.target.value)
+    setUserName && setUserName(e.target.value)
   }
 
   const handleRoomChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -32,15 +36,15 @@ const JoinRoom = () => {
       <main className='join-main'>
         <form onSubmit={handleSubmit}>
           <div className='join-control'>
-            <label htmlFor='username'>Username</label>
+            <label htmlFor='userName'>Username</label>
             <input
               type='text'
-              name='username'
-              id='username'
-              placeholder='Enter username...'
+              name='userName'
+              id='userName'
+              placeholder='Enter user name...'
               required
               onChange={handleUsernameChange}
-              value={username}
+              value={userName}
             />
           </div>
           <div className='join-control'>

@@ -1,3 +1,4 @@
+import { User } from '@chatapp/server/utils/users'
 import {
   createContext,
   ReactNode,
@@ -11,11 +12,12 @@ export const ChatAppContext = createContext<Partial<ChatAppDetails>>({})
 
 export const ChatAppProvider = ({ children }: ChatAppProviderProps) => {
   const [room, setRoom] = useState<string | undefined>()
-  const [username, setUsername] = useState<string | undefined>()
+  const [userName, setUserName] = useState<string | undefined>()
+  const [users, setUsers] = useState<User[]>([])
 
   const value = useMemo(
-    () => ({ room, setRoom, username, setUsername }),
-    [room, username]
+    () => ({ room, setRoom, userName, setUserName, users, setUsers }),
+    [room, userName, users]
   )
 
   return (
@@ -24,10 +26,12 @@ export const ChatAppProvider = ({ children }: ChatAppProviderProps) => {
 }
 
 export interface ChatAppDetails {
-  username?: string
-  setUsername: Dispatch<SetStateAction<string | undefined>>
+  userName?: string
+  setUserName: Dispatch<SetStateAction<string | undefined>>
   room?: string
   setRoom: Dispatch<SetStateAction<string | undefined>>
+  users?: User[]
+  setUsers: Dispatch<SetStateAction<User[]>>
 }
 
 export interface ChatAppProviderProps {

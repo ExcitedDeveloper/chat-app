@@ -17,7 +17,10 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
   cors: {
-    origin: 'http://127.0.0.1:5173',
+    origin:
+      process.env.NODE_ENV === 'production'
+        ? 'https://chat.stevehunley.dev'
+        : 'http://127.0.0.1:5173',
   },
 })
 
@@ -28,8 +31,11 @@ app.get('/', (req, res) => {
 })
 
 io.on(SocketMessages.Connection, (socket) => {
+  socket.on(SocketMessages.Ping, () => {
+    socket.emit(EmitMessages.Pong)
+  })
+
   socket.on(SocketMessages.JoinRoom, ({ userName, room }) => {
-    console.log(`JoinRoom username: ${userName}, room: ${room}`)
     const user = userJoin(socket.id, userName, room)
 
     socket.join(user.room)
