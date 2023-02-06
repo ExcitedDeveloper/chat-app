@@ -4,12 +4,16 @@ import Main from '../Main/Main'
 import Footer from '../Footer/Footer'
 import { io, Socket } from 'socket.io-client'
 import { ChatAppContext } from '../../ChatAppContext'
-import { RoomUsersEvent } from '@chatapp/server/utils/messages'
+import {
+  RoomUsersEvent,
+  Message,
+  MAX_MESSAGES,
+} from '@chatapp/server/utils/messages'
 import './Chat.css'
 
 interface ServerToClientEvents {
   pong: () => void
-  message: (msg: string) => void
+  message: (msg: Message) => void
   roomUsers: (data: RoomUsersEvent) => void
 }
 
@@ -30,7 +34,8 @@ if (process.env.NODE_ENV === 'production') {
 const Chat = () => {
   const [isConnected, setIsConnected] = useState(socket.connected)
   const [lastPong, setLastPong] = useState<string | null>(null)
-  const { userName, room, setUsers } = useContext(ChatAppContext)
+  const { userName, room, setUsers, messages, setMessages } =
+    useContext(ChatAppContext)
 
   useEffect(() => {
     if (userName && room) {
@@ -43,8 +48,19 @@ const Chat = () => {
       setIsConnected(true)
     })
 
-    socket.on('message', (message: string) => {
+    socket.on('message', (message: Message) => {
+      if (!setMessages || !userName) return
+
       console.log(`message`, message)
+      const newMessages = [...(messages || [])]
+
+      if (newMessages.length >= MAX_MESSAGES) {
+        newMessages.pop()
+      }
+
+      newMessages.push(message)
+
+      setMessages(newMessages)
     })
 
     socket.on('roomUsers', (data: RoomUsersEvent) => {

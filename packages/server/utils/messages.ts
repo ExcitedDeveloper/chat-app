@@ -1,6 +1,8 @@
 import moment from 'moment'
 import { User } from './users'
 
+export const MAX_MESSAGES = 10
+
 export interface Message {
   userName: string
   text: string
