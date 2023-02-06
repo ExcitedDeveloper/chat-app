@@ -6,8 +6,9 @@ import {
   Dispatch,
   SetStateAction,
   useMemo,
+  useEffect,
 } from 'react'
-import { Message } from './components/Messages/Messages'
+import { Message } from '@chatapp/server/utils/messages'
 
 export const ChatAppContext = createContext<Partial<ChatAppDetails>>({})
 

@@ -51,16 +51,29 @@ const Chat = () => {
     socket.on('message', (message: Message) => {
       if (!setMessages || !userName) return
 
-      console.log(`message`, message)
-      const newMessages = [...(messages || [])]
+      setMessages((currMessages) => {
+        const newMessages = [...(currMessages || [])]
 
-      if (newMessages.length >= MAX_MESSAGES) {
-        newMessages.pop()
-      }
+        // If message already added, don't add again
+        if (
+          newMessages.some(
+            (msg) =>
+              msg.text === message.text &&
+              msg.time === message.time &&
+              msg.userName === message.userName
+          )
+        ) {
+          return newMessages
+        }
 
-      newMessages.push(message)
+        if (newMessages.length >= MAX_MESSAGES) {
+          newMessages.pop()
+        }
 
-      setMessages(newMessages)
+        newMessages.push(message)
+
+        return newMessages
+      })
     })
 
     socket.on('roomUsers', (data: RoomUsersEvent) => {
