@@ -15,7 +15,11 @@ dotenv.config()
 const app = express()
 const server = http.createServer(app)
 
-const io = new Server(server)
+const io = new Server(server, {
+  cors: {
+    origin: 'http://127.0.0.1:5173',
+  },
+})
 
 const botName = 'ChatApp Bot'
 
@@ -25,6 +29,7 @@ app.get('/', (req, res) => {
 
 io.on(SocketMessages.Connection, (socket) => {
   socket.on(SocketMessages.JoinRoom, ({ userName, room }) => {
+    console.log(`JoinRoom username: ${userName}, room: ${room}`)
     const user = userJoin(socket.id, userName, room)
 
     socket.join(user.room)
