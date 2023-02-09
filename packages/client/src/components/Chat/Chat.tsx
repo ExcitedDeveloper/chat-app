@@ -9,6 +9,7 @@ import {
   Message,
   MAX_MESSAGES,
 } from '@chatapp/server/utils/messages'
+import { User } from '@chatapp/server/utils/users'
 import './Chat.css'
 
 interface ServerToClientEvents {
@@ -22,31 +23,33 @@ interface ClientToServerEvents {
   joinRoom: (data: any) => void
 }
 
-let socket: Socket<ServerToClientEvents, ClientToServerEvents>
-
-if (process.env.NODE_ENV === 'production') {
-  const serverUrl = 'https://www.chat.server.stevehunley.dev/'
-  socket = io(serverUrl)
-} else {
-  socket = io('http://localhost:3000')
-}
-
 const Chat = () => {
-  const [isConnected, setIsConnected] = useState(socket.connected)
-  const [lastPong, setLastPong] = useState<string | null>(null)
-  const { userName, room, setUsers, messages, setMessages } =
+  const { userName, room, setUsers, messages, setMessages, socket, setSocket } =
     useContext(ChatAppContext)
 
   useEffect(() => {
-    if (userName && room) {
-      socket.emit('joinRoom', { userName, room })
+    if (!setSocket) return
+
+    let newSocket: Socket<ServerToClientEvents, ClientToServerEvents>
+
+    if (process.env.NODE_ENV === 'production') {
+      const serverUrl = 'https://www.chat.server.stevehunley.dev/'
+      newSocket = io(serverUrl)
+    } else {
+      newSocket = io('http://localhost:3000')
     }
-  }, [userName, room])
+
+    setSocket(newSocket)
+  }, [setSocket])
 
   useEffect(() => {
-    socket.on('connect', () => {
-      setIsConnected(true)
-    })
+    if (socket && socket.id && userName && room) {
+      socket.emit('joinRoom', { userName, room })
+    }
+  }, [userName, room, socket])
+
+  useEffect(() => {
+    if (!socket) return
 
     socket.on('message', (message: Message) => {
       if (!setMessages || !userName) return
@@ -84,32 +87,14 @@ const Chat = () => {
       }
     })
 
-    socket.on('disconnect', () => {
-      setIsConnected(false)
-    })
-
-    socket.on('pong', () => {
-      setLastPong(new Date().toISOString())
-    })
-
     return () => {
-      socket.off('connect')
-      socket.off('disconnect')
-      socket.off('pong')
+      socket.off('roomUsers')
+      socket.off('message')
     }
-  }, [])
-
-  const sendPing = () => {
-    socket.emit('ping')
-  }
+  }, [socket])
 
   return (
     <div className='chat-container d-flex flex-column'>
-      <div>
-        <p>Connected: {'' + isConnected}</p>
-        <p>Last pong: {lastPong || '-'}</p>
-        <button onClick={sendPing}>Send ping</button>
-      </div>
       <Header />
       <Main />
       <Footer />

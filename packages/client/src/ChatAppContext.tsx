@@ -6,9 +6,20 @@ import {
   Dispatch,
   SetStateAction,
   useMemo,
-  useEffect,
 } from 'react'
-import { Message } from '@chatapp/server/utils/messages'
+import { Message, RoomUsersEvent } from '@chatapp/server/utils/messages'
+import { Socket } from 'socket.io-client'
+
+interface ServerToClientEvents {
+  pong: () => void
+  message: (msg: Message) => void
+  roomUsers: (data: RoomUsersEvent) => void
+}
+
+interface ClientToServerEvents {
+  ping: () => void
+  joinRoom: (data: any) => void
+}
 
 export const ChatAppContext = createContext<Partial<ChatAppDetails>>({})
 
@@ -17,6 +28,9 @@ export const ChatAppProvider = ({ children }: ChatAppProviderProps) => {
   const [userName, setUserName] = useState<string | undefined>()
   const [users, setUsers] = useState<User[]>([])
   const [messages, setMessages] = useState<Message[]>([])
+  const [socket, setSocket] = useState<
+    Socket<ServerToClientEvents, ClientToServerEvents> | undefined
+  >()
 
   const value = useMemo(
     () => ({
@@ -28,6 +42,8 @@ export const ChatAppProvider = ({ children }: ChatAppProviderProps) => {
       setUsers,
       messages,
       setMessages,
+      socket,
+      setSocket,
     }),
     [room, userName, users]
   )
@@ -46,6 +62,12 @@ export interface ChatAppDetails {
   setUsers: Dispatch<SetStateAction<User[]>>
   messages?: Message[]
   setMessages: Dispatch<SetStateAction<Message[]>>
+  socket?: Socket<ServerToClientEvents, ClientToServerEvents>
+  setSocket: Dispatch<
+    SetStateAction<
+      Socket<ServerToClientEvents, ClientToServerEvents> | undefined
+    >
+  >
 }
 
 export interface ChatAppProviderProps {
