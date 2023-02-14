@@ -15,14 +15,7 @@ export const userJoin = (
   const user = { socketId, userName, room }
 
   // Don't add the user if it already has been added
-  if (
-    !users.some(
-      (user) =>
-        user.room === room &&
-        user.userName === userName &&
-        user.socketId === socketId
-    )
-  ) {
+  if (!users.some((user) => user.room === room && user.userName === userName)) {
     users.push(user)
   }
 

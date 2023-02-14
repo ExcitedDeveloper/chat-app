@@ -88,7 +88,6 @@ const Chat = () => {
         const { room: eventRoom, users } = data
 
         if (eventRoom === location.state.room) {
-          console.log(`********* setUsers`, users)
           setUsers && setUsers(users)
         }
       })
