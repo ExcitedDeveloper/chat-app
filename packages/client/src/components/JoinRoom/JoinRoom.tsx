@@ -44,7 +44,7 @@ const JoinRoom = () => {
               placeholder='Enter user name...'
               required
               onChange={handleUsernameChange}
-              value={userName}
+              defaultValue={userName}
             />
           </div>
           <div className='join-control'>
