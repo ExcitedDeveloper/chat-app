@@ -17,7 +17,7 @@ interface ServerToClientEvents {
 }
 
 interface ClientToServerEvents {
-  ping: () => void
+  disconnect: () => void
   joinRoom: (data: any) => void
 }
 

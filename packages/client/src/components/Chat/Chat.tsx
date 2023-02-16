@@ -22,9 +22,10 @@ interface ClientToServerEvents {
 }
 
 const Chat = () => {
-  const [socket, setSocket] =
+  const [socket, setNewSocket] =
     useState<Socket<ServerToClientEvents, ClientToServerEvents>>()
-  const { setUsers, messages, setMessages } = useContext(ChatAppContext)
+  const { setUsers, messages, setMessages, setSocket } =
+    useContext(ChatAppContext)
   const location = useLocation()
 
   useEffect(() => {
@@ -38,8 +39,9 @@ const Chat = () => {
     }
 
     setTimeout(() => {
-      setSocket(newSocket)
-    }, 1000)
+      setNewSocket(newSocket)
+      setSocket && setSocket(newSocket)
+    }, 100)
 
     return () => {
       newSocket.off('roomUsers')
@@ -93,81 +95,6 @@ const Chat = () => {
       })
     }
   }, [socket?.connected])
-
-  // useEffect(() => {
-  //   console.log(
-  //     `******** useEffect socket.id = ${socket?.id}, location.state.userName = ${location.state.userName}, location.state.room = ${location.state.room}`
-  //   )
-  //   if (socket?.id && location.state.userName && location.state.room) {
-  //     console.log(
-  //       `******** joinRoom location.state.userName = ${location.state.userName}, location.state.room = ${location.state.room}`
-  //     )
-  //     socket.emit('joinRoom', {
-  //       userName: location.state.userName,
-  //       room: location.state.room,
-  //     })
-  //   }
-  // }, [location.state.userName, location.state.room, socket])
-
-  // useEffect(() => {
-  //   if (!socket) return
-  //   console.log(`*********** socket is good`, socket.connected)
-
-  //   console.log(
-  //     `******** socket.id = ${socket['id']}, location.state.userName = ${location.state.userName}, location.state.room = ${location.state.room}`
-  //   )
-
-  //   if (socket?.id && location.state.userName && location.state.room) {
-  //     console.log(
-  //       `******** joinRoom location.state.userName = ${location.state.userName}, location.state.room = ${location.state.room}`
-  //     )
-  //     socket.emit('joinRoom', {
-  //       userName: location.state.userName,
-  //       room: location.state.room,
-  //     })
-  //   }
-
-  //   socket.on('message', (message: Message) => {
-  //     if (!setMessages || !location.state.userName) return
-
-  //     setMessages((currMessages) => {
-  //       const newMessages = [...(currMessages || [])]
-
-  //       // If message already added, don't add again
-  //       if (
-  //         newMessages.some(
-  //           (msg) =>
-  //             msg.text === message.text &&
-  //             msg.time === message.time &&
-  //             msg.userName === message.userName
-  //         )
-  //       ) {
-  //         return newMessages
-  //       }
-
-  //       if (newMessages.length >= MAX_MESSAGES) {
-  //         newMessages.pop()
-  //       }
-
-  //       newMessages.push(message)
-
-  //       return newMessages
-  //     })
-  //   })
-
-  //   socket.on('roomUsers', (data: RoomUsersEvent) => {
-  //     const { room: eventRoom, users } = data
-
-  //     if (eventRoom === location.state.room) {
-  //       setUsers && setUsers(users)
-  //     }
-  //   })
-
-  //   return () => {
-  //     socket.off('roomUsers')
-  //     socket.off('message')
-  //   }
-  // }, [socket])
 
   return (
     <div className='chat-container d-flex flex-column'>
