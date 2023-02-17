@@ -31,10 +31,6 @@ app.get('/', (req, res) => {
 })
 
 io.on(SocketMessages.Connection, (socket) => {
-  socket.on(SocketMessages.Ping, () => {
-    socket.emit(EmitMessages.Pong)
-  })
-
   socket.on(SocketMessages.JoinRoom, ({ userName, room }) => {
     const user = userJoin(socket.id, userName, room)
 

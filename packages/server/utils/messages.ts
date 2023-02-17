@@ -28,7 +28,6 @@ export enum SocketMessages {
   Connection = 'connection',
   Disconnect = 'disconnect',
   JoinRoom = 'joinRoom',
-  Ping = 'ping',
 }
 
 export interface RoomUsersEvent {

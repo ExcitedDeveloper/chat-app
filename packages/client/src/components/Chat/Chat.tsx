@@ -24,8 +24,7 @@ interface ClientToServerEvents {
 const Chat = () => {
   const [socket, setNewSocket] =
     useState<Socket<ServerToClientEvents, ClientToServerEvents>>()
-  const { setUsers, messages, setMessages, setSocket } =
-    useContext(ChatAppContext)
+  const { setUsers, setMessages, setSocket } = useContext(ChatAppContext)
   const location = useLocation()
 
   useEffect(() => {

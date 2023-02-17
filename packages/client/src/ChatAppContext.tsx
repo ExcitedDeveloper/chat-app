@@ -19,6 +19,7 @@ interface ServerToClientEvents {
 interface ClientToServerEvents {
   disconnect: () => void
   joinRoom: (data: any) => void
+  chatMessage: (msg: string) => void
 }
 
 export const ChatAppContext = createContext<Partial<ChatAppDetails>>({})
