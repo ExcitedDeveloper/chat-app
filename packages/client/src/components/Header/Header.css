@@ -8,3 +8,22 @@
   align-items: center;
   justify-content: space-between;
 }
+
+/* Override react-confirm-alert dialog styling */
+.react-confirm-alert {
+  background: var(--dark-color-a);
+}
+
+.react-confirm-alert-body {
+  background: var(--dark-color-a);
+  color: #fff;
+}
+
+.react-confirm-alert button {
+  cursor: pointer;
+  padding: 0.313rem 0.938rem;
+  background: var(--light-color);
+  color: var(--dark-color-a);
+  border: 0;
+  font-size: 1.063rem;
+}

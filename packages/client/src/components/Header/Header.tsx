@@ -2,10 +2,10 @@ import { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSmile } from '@fortawesome/free-regular-svg-icons'
 import { ChatAppContext } from '../../ChatAppContext'
-import './Header.css'
 import { useNavigate } from 'react-router-dom'
 import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
+import './Header.css'
 
 const Header = () => {
   const { socket } = useContext(ChatAppContext)
