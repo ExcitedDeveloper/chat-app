@@ -39,7 +39,6 @@ const Chat = () => {
     }
 
     setTimeout(() => {
-      console.log(`********* newSocket`, newSocket)
       setSocket && setSocket(newSocket)
     }, 100)
 
@@ -51,7 +50,6 @@ const Chat = () => {
 
   useEffect(() => {
     if (socket?.connected) {
-      console.log(`********** socket.connected id`, socket?.id)
       if (socket?.id && location.state.userName && location.state.room) {
         socket.emit('joinRoom', {
           userName: location.state.userName,
