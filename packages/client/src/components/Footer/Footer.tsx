@@ -24,8 +24,10 @@ const Footer = () => {
             className='btn'
             onClick={(e) => {
               e.preventDefault()
-              sendMessageRef.current &&
+              if (sendMessageRef.current) {
                 socket?.emit('chatMessage', sendMessageRef.current.value)
+                sendMessageRef.current.value = ''
+              }
             }}
           >
             <FontAwesomeIcon icon={faPaperPlane} className='chat-paperplane' />

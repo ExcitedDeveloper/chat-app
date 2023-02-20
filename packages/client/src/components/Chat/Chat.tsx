@@ -9,7 +9,7 @@ import {
   Message,
   MAX_MESSAGES,
 } from '@chatapp/server/utils/messages'
-import { useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import './Chat.css'
 
 interface ServerToClientEvents {
@@ -22,9 +22,16 @@ interface ClientToServerEvents {
 }
 
 const Chat = () => {
-  const { setUsers, setMessages, setSocket, socket } =
+  const { setUsers, setMessages, setSocket, socket, room } =
     useContext(ChatAppContext)
   const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!room) {
+      navigate('/')
+    }
+  }, [room])
 
   useEffect(() => {
     if (socket?.id) return
