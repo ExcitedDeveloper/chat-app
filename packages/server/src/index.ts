@@ -9,17 +9,19 @@ import {
 } from '../utils/users'
 import { formatMessage, SocketMessages, EmitMessages } from '../utils/messages'
 import dotenv from 'dotenv'
+import { infoLogger } from '../utils/loggers'
 
 dotenv.config()
 
 const app = express()
 const server = http.createServer(app)
 
+infoLogger.info(`process.env.NODE_ENV = ${process.env.NODE_ENV}`)
 const io = new Server(server, {
   cors: {
     origin:
       process.env.NODE_ENV === 'production'
-        ? 'https://chat.stevehunley.dev'
+        ? 'https://www.chat.stevehunley.dev'
         : 'http://127.0.0.1:5173',
   },
 })
