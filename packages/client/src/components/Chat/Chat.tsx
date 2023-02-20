@@ -22,12 +22,13 @@ interface ClientToServerEvents {
 }
 
 const Chat = () => {
-  const [socket, setNewSocket] =
-    useState<Socket<ServerToClientEvents, ClientToServerEvents>>()
-  const { setUsers, setMessages, setSocket } = useContext(ChatAppContext)
+  const { setUsers, setMessages, setSocket, socket } =
+    useContext(ChatAppContext)
   const location = useLocation()
 
   useEffect(() => {
+    if (socket?.id) return
+
     let newSocket: Socket<ServerToClientEvents, ClientToServerEvents>
 
     if (process.env.NODE_ENV === 'production') {
@@ -38,7 +39,7 @@ const Chat = () => {
     }
 
     setTimeout(() => {
-      setNewSocket(newSocket)
+      console.log(`********* newSocket`, newSocket)
       setSocket && setSocket(newSocket)
     }, 100)
 
@@ -50,6 +51,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (socket?.connected) {
+      console.log(`********** socket.connected id`, socket?.id)
       if (socket?.id && location.state.userName && location.state.room) {
         socket.emit('joinRoom', {
           userName: location.state.userName,

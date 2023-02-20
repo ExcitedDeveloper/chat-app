@@ -46,7 +46,7 @@ export const ChatAppProvider = ({ children }: ChatAppProviderProps) => {
       socket,
       setSocket,
     }),
-    [room, userName, users]
+    [room, userName, users, messages, socket]
   )
 
   return (
