@@ -8,7 +8,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import './Header.css'
 
 const Header = () => {
-  const { socket } = useContext(ChatAppContext)
+  const { socket, setMessages, setRoom, setUserName } =
+    useContext(ChatAppContext)
   const navigate = useNavigate()
 
   return (
@@ -26,6 +27,9 @@ const Header = () => {
               {
                 label: 'Yes',
                 onClick: () => {
+                  setMessages && setMessages([])
+                  setUserName && setUserName('')
+                  setRoom && setRoom('')
                   socket?.disconnect()
                   navigate('/')
                 },
