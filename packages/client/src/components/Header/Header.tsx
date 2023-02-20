@@ -4,6 +4,8 @@ import { faSmile } from '@fortawesome/free-regular-svg-icons'
 import { ChatAppContext } from '../../ChatAppContext'
 import './Header.css'
 import { useNavigate } from 'react-router-dom'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 const Header = () => {
   const { socket } = useContext(ChatAppContext)
@@ -18,8 +20,21 @@ const Header = () => {
       <a
         className='btn'
         onClick={() => {
-          socket?.disconnect()
-          navigate('/')
+          confirmAlert({
+            title: 'Are you sure you want to leave the chat room?',
+            buttons: [
+              {
+                label: 'Yes',
+                onClick: () => {
+                  socket?.disconnect()
+                  navigate('/')
+                },
+              },
+              {
+                label: 'No',
+              },
+            ],
+          })
         }}
       >
         Leave Room
